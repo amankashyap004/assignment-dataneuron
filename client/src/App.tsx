@@ -1,13 +1,10 @@
 import "./App.css";
-import { Button } from "./components/ui/button";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <main>
-      <div>
-        <p className="text-3xl font-semibold">Assignment DataNeuron</p>
-      </div>
-      <Button>Button</Button>
+    <main className="bg-slate-950 text-white">
+      <Header />
     </main>
   );
 }
