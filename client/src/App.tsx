@@ -3,7 +3,7 @@ import "./App.css";
 function App() {
   return (
     <main>
-      <p>Assignment DataNeuron</p>
+      <p className="text-3xl font-semibold">Assignment DataNeuron</p>
     </main>
   );
 }
