@@ -1,9 +1,13 @@
 import "./App.css";
+import { Button } from "./components/ui/button";
 
 function App() {
   return (
     <main>
-      <p className="text-3xl font-semibold">Assignment DataNeuron</p>
+      <div>
+        <p className="text-3xl font-semibold">Assignment DataNeuron</p>
+      </div>
+      <Button>Button</Button>
     </main>
   );
 }
