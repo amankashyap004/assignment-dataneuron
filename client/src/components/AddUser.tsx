@@ -12,6 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose
 } from "@/components/ui/dialog";
 
 const AddUser: React.FC = () => {
@@ -110,7 +111,10 @@ const AddUser: React.FC = () => {
               </div>
             </div>
             <DialogFooter>
+              <DialogClose asChild>
               <Button type="submit">Add</Button>
+
+              </DialogClose>
             </DialogFooter>
           </form>
         </DialogContent>

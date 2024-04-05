@@ -3,6 +3,8 @@ import axios from "axios";
 
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import UpdateUser from "./UpdateUser";
+import { Button } from "./ui/button";
 
 import {
   Table,
@@ -14,26 +16,58 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+interface UserData {
+  _id: any;
+  name: string;
+  email: string;
+  phone: string;
+}
+
 const TableData: React.FC = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<UserData[]>([]);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
 
   useEffect(() => {
-    async function FeatchData() {
-      try {
-        const user = await axios.get("http://localhost:8000/api/get");
-        const response = user.data;
-        console.log(response.users);
-        setData(response.users);
-      } catch (error) {
-        console.log(error);
-      }
+    fetchData();
+  }, [data]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/api/get");
+      setData(response.data.users);
+    } catch (error) {
+      console.log("Error fetching data:", error);
     }
-    FeatchData();
-  }, []);
+  };
+
+  const handleDeleteConfirmation = (userId: string) => {
+    setConfirmDeleteId(userId);
+  };
+
+  const handleEditUser = (user: UserData) => {
+    setSelectedUser(user);
+  };
+
+  const handleDeleteCancel = () => {
+    setConfirmDeleteId(null);
+  };
+
+  const handleDeleteConfirmed = async (userId: string) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/delete/${userId}`);
+      fetchData(); // Refresh data after delete
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    } finally {
+      setConfirmDeleteId(null);
+    }
+  };
+
   return (
-    <div>
+    <div className="text-white">
       <Table>
-        <TableCaption>list of User</TableCaption>
+        <TableCaption>list of Users</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Name</TableHead>
@@ -43,23 +77,59 @@ const TableData: React.FC = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data?.map((item: any, index: any) => (
-            <TableRow key={index}>
+          {data.map((item) => (
+            <TableRow key={item._id}>
               <TableCell className="font-medium">{item.name}</TableCell>
               <TableCell>{item.email}</TableCell>
               <TableCell>{item.phone}</TableCell>
               <TableCell className="flex justify-center items-center gap-2 text-xl">
-                <a href="#" className="cursor-pointer text-green-400">
+                <p
+                  className="cursor-pointer text-green-400"
+                  onClick={() => handleEditUser(item)}
+                >
                   <FaEdit />
-                </a>
-                <a href="#" className="cursor-pointer text-red-600">
+                </p>
+                <p
+                  className="cursor-pointer text-red-600"
+                  onClick={() => handleDeleteConfirmation(item._id)}
+                >
                   <MdDelete />
-                </a>
+                </p>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+
+      {confirmDeleteId && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="bg-black p-8 rounded-md shadow-md">
+            <p>Are you sure you want to delete this user?</p>
+            <div className="mt-4 flex justify-between">
+              <Button
+                className="px-4 py-2 bg-red-800 hover:bg-red-700"
+                onClick={() => handleDeleteConfirmed(confirmDeleteId)}
+              >
+                Delete
+              </Button>
+              <Button
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-700"
+                onClick={handleDeleteCancel}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {selectedUser && (
+        <UpdateUser
+          user={selectedUser}
+          onClose={() => setSelectedUser(null)}
+          onSuccess={fetchData}
+        />
+      )}
     </div>
   );
 };
