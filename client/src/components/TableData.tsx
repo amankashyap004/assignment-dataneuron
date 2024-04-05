@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { API_BASE_URL } from "@/lib/utils";
 
 interface UserData {
   _id: any;
@@ -34,8 +35,8 @@ const TableData: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/get");
-      setData(response.data.users);
+      const response = await axios.get(`${API_BASE_URL}/users`);
+      setData(response.data.data);
     } catch (error) {
       console.log("Error fetching data:", error);
     }
@@ -55,7 +56,7 @@ const TableData: React.FC = () => {
 
   const handleDeleteConfirmed = async (userId: string) => {
     try {
-      await axios.delete(`http://localhost:8000/api/delete/${userId}`);
+      await axios.delete(`${API_BASE_URL}/users/${userId}`);
       fetchData(); // Refresh data after delete
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -67,7 +68,6 @@ const TableData: React.FC = () => {
   return (
     <div className="text-white">
       <Table>
-        <TableCaption>list of Users</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Name</TableHead>

@@ -14,12 +14,12 @@ import {
   DialogTrigger,
   DialogClose
 } from "@/components/ui/dialog";
+import { API_BASE_URL } from "@/lib/utils";
 
 const AddUser: React.FC = () => {
   const [value, setValue] = useState({
     name: "",
     email: "",
-    phone: "",
   });
 
   const handleOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +34,7 @@ const AddUser: React.FC = () => {
 
     try {
       const adduser = await axios.post(
-        `http://localhost:8000/api/create`,
+        `${API_BASE_URL}/users`,
         value
       );
       const response = adduser.data;
@@ -48,8 +48,7 @@ const AddUser: React.FC = () => {
 
     setValue({
       name: "",
-      email: "",
-      phone: "",
+      email: ""
     });
   };
 
@@ -95,20 +94,6 @@ const AddUser: React.FC = () => {
                 />
               </div>
 
-              <div className="flex justify-start items-start flex-col gap-4">
-                <Label htmlFor="phone" className="text-right">
-                  Phone
-                </Label>
-                <Input
-                  type="text"
-                  id="phone"
-                  value={value.phone}
-                  name="phone"
-                  onChange={handleOnchange}
-                  required
-                  className="w-full bg-black"
-                />
-              </div>
             </div>
             <DialogFooter>
               <DialogClose asChild>

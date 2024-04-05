@@ -21,7 +21,7 @@ const HomePage = () => {
                 <FirtsComponent />
               </div>
             </ResizablePanel>
-            <ResizableHandle />
+            <ResizableHandle withHandle />
             <ResizablePanel defaultSize={55}>
               <div className="flex justify-center items-center p-4 border h-full">
                 <SecondComponent />
@@ -30,7 +30,7 @@ const HomePage = () => {
           </ResizablePanelGroup>
         </ResizablePanel>
 
-        <ResizableHandle />
+        <ResizableHandle withHandle />
         <ResizablePanel defaultSize={50}>
           <div className="flex justify-center items-start border h-full overflow-scroll no-scrollbar lg:pt-10 p-4 ps-20 lg:ps-0">
             <ThirdComponent />

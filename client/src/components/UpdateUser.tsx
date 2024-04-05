@@ -9,10 +9,10 @@ import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { API_BASE_URL } from "@/lib/utils";
 
 interface Props {
   user: any;
@@ -25,7 +25,6 @@ const UpdateUser: React.FC<Props> = ({ user, onClose, onSuccess }) => {
     _id: user._id,
     name: user.name,
     email: user.email,
-    phone: user.phone,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +36,7 @@ const UpdateUser: React.FC<Props> = ({ user, onClose, onSuccess }) => {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:8000/api/update/${user._id}`,
+        `${API_BASE_URL}/users/${user._id}`,
         formValues
       );
       onSuccess();
@@ -81,18 +80,7 @@ const UpdateUser: React.FC<Props> = ({ user, onClose, onSuccess }) => {
               />
             </div>
 
-            <div className="flex justify-start items-start flex-col gap-4">
-              <Label htmlFor="phone">Phone</Label>
-              <Input
-                type="text"
-                id="phone"
-                value={formValues.phone}
-                name="phone"
-                onChange={handleInputChange}
-                required
-                className="w-full bg-black"
-              />
-            </div>
+           
           </div>
           <div className="flex justify-end items-center w-full gap-4">
             <Button type="submit" className="bg-green-800 hover:bg-green-700">
