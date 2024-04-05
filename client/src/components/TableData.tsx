@@ -68,7 +68,7 @@ const TableData: React.FC = () => {
     <div className="text-white">
       <div className="flex justify-between items-center text-center py-2 ps-4">
         <h2 className="text-xl font-semibold">Users</h2>
-        <AddUser />
+        <AddUser fetchData={fetchData} />
       </div>
 
       <Table>
@@ -80,26 +80,27 @@ const TableData: React.FC = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((item) => (
-            <TableRow key={item._id}>
-              <TableCell className="font-medium">{item.name}</TableCell>
-              <TableCell>{item.email}</TableCell>
-              <TableCell className="flex justify-start items-center gap-2 text-xl">
-                <p
-                  className="cursor-pointer text-green-400"
-                  onClick={() => handleEditUser(item)}
-                >
-                  <FaEdit />
-                </p>
-                <p
-                  className="cursor-pointer text-red-600"
-                  onClick={() => handleDeleteConfirmation(item._id)}
-                >
-                  <MdDelete />
-                </p>
-              </TableCell>
-            </TableRow>
-          ))}
+          {data &&
+            data.map((item) => (
+              <TableRow key={item._id}>
+                <TableCell className="font-medium">{item.name}</TableCell>
+                <TableCell>{item.email}</TableCell>
+                <TableCell className="flex justify-start items-center gap-2 text-xl">
+                  <p
+                    className="cursor-pointer text-green-400"
+                    onClick={() => handleEditUser(item)}
+                  >
+                    <FaEdit />
+                  </p>
+                  <p
+                    className="cursor-pointer text-red-600"
+                    onClick={() => handleDeleteConfirmation(item._id)}
+                  >
+                    <MdDelete />
+                  </p>
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
 

@@ -16,7 +16,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 
-const AddUser: React.FC = () => {
+const AddUser: React.FC<any> = ({ fetchData }) => {
   const [value, setValue] = useState({
     name: "",
     email: "",
@@ -38,6 +38,7 @@ const AddUser: React.FC = () => {
       if (response.success) {
         toast.success(response.message);
       }
+      fetchData();
       console.log(response);
     } catch (error) {
       console.log(error);
