@@ -20,7 +20,6 @@ interface ApiData {
 }
 
 const SecondComponent: React.FC = () => {
-  const [data, setData] = useState<ApiData[]>([]);
   const [methodTotals, setMethodTotals] = useState<{ [key: string]: number }>(
     {}
   );
@@ -35,7 +34,7 @@ const SecondComponent: React.FC = () => {
         `${API_BASE_URL}/api-logs`
       );
       console.log("API Response:", response.data);
-      setData(response.data.data);
+      
 
       const methodTotals: { [key: string]: number } = {};
       response.data.data.forEach((element) => {

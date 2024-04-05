@@ -1,9 +1,11 @@
-# Project Name
+# Assignment DataNeuron
 
 ## Description
+
 This project is a full-stack web application developed with Node.js, Express, MongoDB, React, and Tailwind CSS. It allows users to perform CRUD operations on a user database.
 
 ## Features
+
 - Create, Read, Update, and Delete (CRUD) operations on user data
 - Server-side validation using Yup
 - Error handling and feedback using react-hot-toast
@@ -12,6 +14,7 @@ This project is a full-stack web application developed with Node.js, Express, Mo
 - Environment variable management with dotenv
 
 ## Installation
+
 1. Clone the repository.
 2. Navigate to the project directory.
 3. Install dependencies by running `npm install` or `yarn install` in both the client and server directories.
@@ -20,12 +23,14 @@ This project is a full-stack web application developed with Node.js, Express, Mo
 6. Start the client by running `npm start` or `yarn start`.
 
 ## Backend Setup
+
 - **Express**: Backend server framework.
 - **Mongoose**: MongoDB object modeling tool.
 - **Cors**: Cross-origin resource sharing middleware.
 - **Dotenv**: Loads environment variables from a `.env` file.
 
 ## Frontend Setup
+
 - **React**: Frontend JavaScript library for building user interfaces.
 - **Vite**: Next-generation frontend tooling.
 - **Typescript**: Superset of JavaScript with static typing.
@@ -35,6 +40,7 @@ This project is a full-stack web application developed with Node.js, Express, Mo
 - **React-Hot-Toast**: Toast notifications for React apps.
 
 ## Usage
+
 1. Open your browser and navigate to the application's URL.
 2. View the list of users.
 3. Perform CRUD operations on users.
@@ -43,8 +49,9 @@ This project is a full-stack web application developed with Node.js, Express, Mo
 6. Confirm delete operations in the confirmation dialog.
 
 ## Live Demo
+
 [Live Demo]()
 
 ## License
-This project is licensed under the [MIT License](LICENSE).
 
+This project is licensed under the [MIT License](LICENSE).
