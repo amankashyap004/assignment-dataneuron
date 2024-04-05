@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,7 +31,20 @@ const AddUser: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(value);
+    try {
+      const adduser = await axios.post(
+        `http://localhost:8000/api/create`,
+        value
+      );
+      const response = adduser.data;
+      if (response.success) {
+        toast.success(response.message);
+      }
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+
     setValue({
       name: "",
       email: "",
