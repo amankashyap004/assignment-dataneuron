@@ -1,82 +1,77 @@
 import { User } from "../models/user.model.js";
-const create = async (req, res) => {
-  try {
-    const { name, email, phone } = req.body;
-    const Newuser = new User({
-      name,
-      email,
-      phone,
-    });
-    await Newuser.save();
+import { object, string } from "yup";
+import { failureResponse, successResponse } from "../utils/index.js";
 
-    res
-      .status(200)
-      .json({ success: true, message: "User Created Successfully.", Newuser });
-  } catch (error) {
-    console.log(error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Interl server eror" });
-  }
-};
+export const userValidationSchema = object({
+  name: string().required(),
+  email: string().email(),
+});
 
-// Read api
-const get = async (req, res) => {
+export const getUsers = async (req, res) => {
   try {
     const users = await User.find();
-    if (!users) {
-      return res.status(404).json({ success: false });
-    }
-
-    res.status(200).json({ users });
+    successResponse(req, res, users);
   } catch (error) {
     console.log(error);
-
-    res.status(500).json({ success: false });
+    failureResponse(req, res);
   }
 };
 
-// update user
-const Updated = async (req, res) => {
+export const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return failureResponse(req, res, {}, "User not found", 404);
+    }
+
+    successResponse(req, res, user);
+  } catch (error) {
+    console.log(error);
+    failureResponse(req, res);
+  }
+};
+
+export const createUser = async (req, res) => {
+  try {
+    const userData = await userValidationSchema.validate(req.body);
+    const newUser = new User(userData);
+    await newUser.save();
+    successResponse(req, res, newUser, "User created successfully.", 201);
+  } catch (error) {
+    console.log(error);
+    failureResponse(req, res, error?.errors);
+  }
+};
+
+export const updateUser = async (req, res) => {
   try {
     const userId = req.params.id;
-
-    const updateuser = await User.findByIdAndUpdate(userId, req.body, {
+    const userData = await userValidationSchema.validate(req.body);
+    const updatedUser = await User.findByIdAndUpdate(userId, userData, {
       new: true,
     });
-    if (!updateuser) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+    if (!updatedUser) {
+      return failureResponse(req, res, {}, "User not found", 404);
     }
-    res.status(200).json({
-      success: true,
-      message: "User updated successfully",
-      updateuser,
-    });
+
+    successResponse(req, res, updatedUser, "User updated successfully");
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+    failureResponse(req, res, error?.errors);
   }
 };
 
-// delete user
-const Delete = async (req, res) => {
+export const deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    const deletuser = await User.findByIdAndDelete(userId);
-    if (!deletuser) {
-      return res
-        .status(404)
-        .json({ success: false, message: "user Not found" });
+    const deletedUser = await User.findByIdAndDelete(userId);
+    if (!deletedUser) {
+      return failureResponse(req, res, {}, "User not found", 404);
     }
-    res
-      .status(200)
-      .json({ success: true, message: "user Deleted successfully" });
+
+    successResponse(req, res, {}, "User deleted successfully", 204);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+    failureResponse(req, res);
   }
 };
-
-export { create, get, Updated, Delete };
