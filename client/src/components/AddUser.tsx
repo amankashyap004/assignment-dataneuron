@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { API_BASE_URL } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,9 +13,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose
+  DialogClose,
 } from "@/components/ui/dialog";
-import { API_BASE_URL } from "@/lib/utils";
 
 const AddUser: React.FC = () => {
   const [value, setValue] = useState({
@@ -33,10 +33,7 @@ const AddUser: React.FC = () => {
     e.preventDefault();
 
     try {
-      const adduser = await axios.post(
-        `${API_BASE_URL}/users`,
-        value
-      );
+      const adduser = await axios.post(`${API_BASE_URL}/users`, value);
       const response = adduser.data;
       if (response.success) {
         toast.success(response.message);
@@ -48,12 +45,15 @@ const AddUser: React.FC = () => {
 
     setValue({
       name: "",
-      email: ""
+      email: "",
     });
   };
 
   return (
-    <div className="">
+    <div className="flex justify-center items-center text-center flex-col gap-4">
+      <div className="flex justify-center items-center text-center py-2">
+        <h2>Add New User: Click to Expand the Database</h2>
+      </div>
       <Dialog>
         <DialogTrigger asChild>
           <Button className="bg-black text-white">Add User</Button>
@@ -93,12 +93,10 @@ const AddUser: React.FC = () => {
                   className="w-full bg-black"
                 />
               </div>
-
             </div>
             <DialogFooter>
               <DialogClose asChild>
-              <Button type="submit">Add</Button>
-
+                <Button type="submit">Add</Button>
               </DialogClose>
             </DialogFooter>
           </form>

@@ -9,12 +9,12 @@ import {
 
 const HomePage = () => {
   return (
-    <div className="h-screen lg:h-[150dvh]">
+    <div className="h-[90dvh]">
       <ResizablePanelGroup
         direction="vertical"
-        className="w-full h-full p-2 lg:p-8"
+        className="w-full h-full"
       >
-        <ResizablePanel defaultSize={50}>
+        <ResizablePanel defaultSize={30}>
           <ResizablePanelGroup direction="horizontal">
             <ResizablePanel defaultSize={45}>
               <div className="flex justify-center items-center p-4 border h-full">
@@ -23,7 +23,7 @@ const HomePage = () => {
             </ResizablePanel>
             <ResizableHandle withHandle />
             <ResizablePanel defaultSize={55}>
-              <div className="flex justify-center items-center p-4 border h-full">
+              <div className="flex justify-center items-center p-4 border h-full overflow-scroll no-scrollbar pt-20 lg:pt-10">
                 <SecondComponent />
               </div>
             </ResizablePanel>
@@ -31,7 +31,7 @@ const HomePage = () => {
         </ResizablePanel>
 
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={50}>
+        <ResizablePanel defaultSize={70}>
           <div className="flex justify-center items-start border h-full overflow-scroll no-scrollbar lg:pt-10 p-4 ps-20 lg:ps-0">
             <ThirdComponent />
           </div>

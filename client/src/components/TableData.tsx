@@ -9,7 +9,6 @@ import { Button } from "./ui/button";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -21,7 +20,6 @@ interface UserData {
   _id: any;
   name: string;
   email: string;
-  phone: string;
 }
 
 const TableData: React.FC = () => {
@@ -31,7 +29,7 @@ const TableData: React.FC = () => {
 
   useEffect(() => {
     fetchData();
-  }, [data]);
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -57,7 +55,7 @@ const TableData: React.FC = () => {
   const handleDeleteConfirmed = async (userId: string) => {
     try {
       await axios.delete(`${API_BASE_URL}/users/${userId}`);
-      fetchData(); // Refresh data after delete
+      fetchData();
     } catch (error) {
       console.error("Error deleting user:", error);
     } finally {
@@ -67,12 +65,15 @@ const TableData: React.FC = () => {
 
   return (
     <div className="text-white">
+      <div className="flex justify-center items-center text-center py-2">
+        <h2>Displaying Entered Data: Populate Table with User Information</h2>
+      </div>
+
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
-            <TableHead>Phone</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -81,7 +82,6 @@ const TableData: React.FC = () => {
             <TableRow key={item._id}>
               <TableCell className="font-medium">{item.name}</TableCell>
               <TableCell>{item.email}</TableCell>
-              <TableCell>{item.phone}</TableCell>
               <TableCell className="flex justify-center items-center gap-2 text-xl">
                 <p
                   className="cursor-pointer text-green-400"
