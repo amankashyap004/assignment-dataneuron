@@ -51,12 +51,9 @@ const AddUser: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center text-center flex-col gap-4">
-      <div className="flex justify-center items-center text-center py-2">
-        <h2>Add New User: Click to Expand the Database</h2>
-      </div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="bg-black text-white">Add User</Button>
+          <Button className="bg-slate-800 text-white">Add User</Button>
         </DialogTrigger>
         <DialogContent className="bg-black text-white sm:max-w-[500px]">
           <DialogHeader>

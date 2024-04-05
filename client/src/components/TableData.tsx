@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { API_BASE_URL } from "@/lib/utils";
+import AddUser from "./AddUser";
 
 interface UserData {
   _id: any;
@@ -65,8 +66,9 @@ const TableData: React.FC = () => {
 
   return (
     <div className="text-white">
-      <div className="flex justify-center items-center text-center py-2">
-        <h2>Displaying Entered Data: Populate Table with User Information</h2>
+      <div className="flex justify-between items-center text-center py-2 ps-4">
+        <h2 className="text-xl font-semibold">Users</h2>
+        <AddUser />
       </div>
 
       <Table>
@@ -82,7 +84,7 @@ const TableData: React.FC = () => {
             <TableRow key={item._id}>
               <TableCell className="font-medium">{item.name}</TableCell>
               <TableCell>{item.email}</TableCell>
-              <TableCell className="flex justify-center items-center gap-2 text-xl">
+              <TableCell className="flex justify-start items-center gap-2 text-xl">
                 <p
                   className="cursor-pointer text-green-400"
                   onClick={() => handleEditUser(item)}

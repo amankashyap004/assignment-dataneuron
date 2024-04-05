@@ -34,7 +34,6 @@ const SecondComponent: React.FC = () => {
         `${API_BASE_URL}/api-logs`
       );
       console.log("API Response:", response.data);
-      
 
       const methodTotals: { [key: string]: number } = {};
       response.data.data.forEach((element) => {
@@ -52,24 +51,30 @@ const SecondComponent: React.FC = () => {
 
   return (
     <div>
-      <div className="flex justify-center items-center text-center py-2">
-        <h2>API Data Counts: Tracking Requests by Method</h2>
+      <div className="flex justify-start items-center text-center py-2 ps-2">
+        <h2>API called counts</h2>
       </div>
 
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Method</TableHead>
-            <TableHead>Total Count</TableHead>
+            <TableHead className="font-semibold text-white">Method</TableHead>
+            {Object.entries(methodTotals).map(([method], index) => (
+              <TableHead key={index} className="text-white text-opacity-80">
+                {method}
+              </TableHead>
+            ))}
           </TableRow>
         </TableHeader>
         <TableBody>
-          {Object.entries(methodTotals).map(([method, totalCount]) => (
-            <TableRow key={method}>
-              <TableCell>{method}</TableCell>
-              <TableCell>{totalCount}</TableCell>
-            </TableRow>
-          ))}
+          <TableRow>
+            <TableCell className="font-semibold text-white">
+              Total Count
+            </TableCell>
+            {Object.entries(methodTotals).map(([method, totalCount], index) => (
+              <TableCell key={index}>{totalCount}</TableCell>
+            ))}
+          </TableRow>
         </TableBody>
       </Table>
     </div>

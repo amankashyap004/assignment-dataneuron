@@ -1,11 +1,5 @@
-import AddUser from "../AddUser";
-
 const FirtsComponent = () => {
-  return (
-    <div>
-      <AddUser />
-    </div>
-  );
+  return <div>Side Menu</div>;
 };
 
 export default FirtsComponent;

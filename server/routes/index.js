@@ -17,7 +17,6 @@ routers.post("/users", createUser);
 routers.put("/users/:id", updateUser);
 routers.delete("/users/:id", deleteUser);
 
-
 export const getApiLogs = async (req, res) => {
   // const postUserApi = await ApiLog.findOne({path: "/users/", method: "POST"});
   // const data = {
@@ -25,9 +24,10 @@ export const getApiLogs = async (req, res) => {
   //   postUserApiCount: postUserApi.count,
   //   putUserApiCount: 0,
   // }
-  const apiLogs = await ApiLog.find(); 
+  const apiLogs = await ApiLog.find({path: {$regex: "/users", $options: 'i'}});
   successResponse(req, res, apiLogs);
-}
+};
 
+routers.get("/api-logs", getApiLogs);
 
 export default routers;
