@@ -71,8 +71,8 @@ const SecondComponent: React.FC = () => {
             <TableCell className="font-semibold text-white">
               Total Count
             </TableCell>
-            {Object.entries(methodTotals).map(([method, totalCount], index) => (
-              <TableCell key={index}>{totalCount}</TableCell>
+            {Object.entries(methodTotals).map(( item, index) => (
+              <TableCell key={index}>{item[1]}</TableCell>
             ))}
           </TableRow>
         </TableBody>
