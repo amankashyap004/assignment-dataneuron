@@ -94,7 +94,7 @@ const UpdateUser: React.FC<Props> = ({ user, onClose, onSuccess }) => {
               />
             </div>
           </div>
-          <DialogFooter>
+          <div className="flex justify-end items-center w-full gap-4">
             <Button type="submit" className="bg-green-800 hover:bg-green-700">
               Update
             </Button>
@@ -105,7 +105,7 @@ const UpdateUser: React.FC<Props> = ({ user, onClose, onSuccess }) => {
             >
               Close
             </Button>
-          </DialogFooter>
+          </div>
         </form>
       </DialogContent>
     </Dialog>
